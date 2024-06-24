@@ -1,0 +1,28 @@
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {environment} from "../../environments/environment.prod";
+import {Observable} from "rxjs";
+import {ApiResultFormatModel} from "../model/common/ApiResultFormatModel";
+
+@Injectable({
+  providedIn: 'root',
+})
+export class PrivilegeService {
+  SERVER = '';
+  constructor(private http: HttpClient) {
+    this.SERVER = environment.baseURL;
+  }
+
+
+  getAllPrivileges() {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.post<any>(environment.baseURL + 'privilege/get-all-privileges', null, {headers});
+  }
+
+
+  assignPrivileges(payload: any) {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.post<any>(environment.baseURL + 'privilege/assign-privileges', payload, {headers});
+  }
+
+}
