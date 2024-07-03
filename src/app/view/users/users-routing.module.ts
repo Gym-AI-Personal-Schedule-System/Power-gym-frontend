@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users.component';
-import {UserPrivilegeModule} from "./user-privilege/user-privilege.module";
 
 const routes: Routes = [
   { path: '', redirectTo: 'user-lists', pathMatch: 'full' },
@@ -18,11 +17,6 @@ const routes: Routes = [
         path: 'user-lists',
         loadChildren: () =>
           import('./userlists/userlists.module').then((m) => m.UserlistsModule),
-      },
-      {
-        path: 'user-role',
-        loadChildren: () =>
-          import('./user-role/user-role.module').then((m) => m.UserRoleModule),
       },
       {
         path: 'user-privilege',

@@ -1,7 +1,7 @@
 <div class="page-header">
   <div class="page-title">
-    <h4>Customer Management</h4>
-    <h6>Add/Update Customer</h6>
+    <h4>Member Management</h4>
+    <h6>Add Member</h6>
   </div>
 </div>
 <div class="card">
@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label class="me-2">Mobile 1</label>
+            <label class="me-2">Contact number</label>
           <div class="input-group">
             <input type="text" formControlName="mobileNumOne" class="form-control">
             <span class="input-group-text" (click)="getCustomerByMobile()"><i class="fa fa-search" aria-hidden="true"></i></span>
@@ -19,32 +19,29 @@
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label>Customer Name</label>
-            <input type="text" formControlName="customerName" class="form-control">
+            <label>Member Name</label>
+            <input type="text" formControlName="MemberName" class="form-control">
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label>Mobile 2</label>
-            <input type="text" formControlName="mobileNumTwo" class="form-control">
+            <label>Member Nic</label>
+            <input type="text" formControlName="memberNic" class="form-control">
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label>Choose Country</label>
-            <select formControlName="country" class="form-control">
-              <option *ngFor="let data of selectedList1" [value]="data.value">{{data.value}}</option>
-            </select>
+            <label>Email</label>
+            <input type="email" formControlName="email" class="form-control">
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label class="me-2">City</label>
-            <ng-select   class="mb-1 form-control select">
-              <ng-option *ngFor="let city of cityList" [value]="city.cityValue">{{ city.cityValue }}</ng-option>
-            </ng-select>
+            <label>Password</label>
+            <input type="password" formControlName="password" class="form-control">
           </div>
         </div>
+
         <div class="col-lg-9 col-12">
           <div class="form-group">
             <label>Address</label>

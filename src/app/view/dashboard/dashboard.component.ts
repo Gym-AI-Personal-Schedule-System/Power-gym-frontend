@@ -80,7 +80,7 @@ export class DashboardComponent {
     {
       SNo: '1',
       ProductCode: 'IT0001',
-      ProductName: 'Orange',
+      ProductName: 'Test',
       img: 'assets/img/product/product2.jpg',
       BrandName: 'N/D',
       CategoryName: 'Fruits',
@@ -89,7 +89,7 @@ export class DashboardComponent {
     {
       SNo: '2',
       ProductCode: 'IT0002',
-      ProductName: 'Pineapple',
+      ProductName: 'Test',
       img: 'assets/img/product/product3.jpg',
       BrandName: 'N/D',
       CategoryName: 'Fruits',
@@ -98,7 +98,7 @@ export class DashboardComponent {
     {
       SNo: '3',
       ProductCode: 'IT0003',
-      ProductName: 'Stawberry',
+      ProductName: 'Test',
       img: 'assets/img/product/product4.jpg',
       BrandName: 'N/D',
       CategoryName: 'Fruits',
@@ -107,7 +107,7 @@ export class DashboardComponent {
     {
       SNo: '4',
       ProductCode: 'IT0004',
-      ProductName: 'Avocat',
+      ProductName: 'Test',
       img: 'assets/img/product/product5.jpg',
       BrandName: 'N/D',
       CategoryName: 'Fruits',

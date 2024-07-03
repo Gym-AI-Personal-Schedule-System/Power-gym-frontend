@@ -17,10 +17,10 @@ import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-customerlist',
-  templateUrl: './memborlist.component.html',
-  styleUrls: ['./memborlist.component.scss'],
+  templateUrl: './memberlist.component.html',
+  styleUrls: ['./memberlist.component.scss'],
 })
-export class MemborlistComponent {
+export class MemberlistComponent {
   public routes = routes;
   initChecked = false;
   public tableData: Array<CustomerModel> = [];

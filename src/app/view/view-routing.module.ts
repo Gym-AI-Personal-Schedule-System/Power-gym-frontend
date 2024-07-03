@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {ViewComponent} from "./view.component";
-import {CommissionModule} from "./commission/commission.module";
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -30,11 +29,6 @@ const routes: Routes = [
         path: 'user',
         loadChildren: () =>
           import('./users/users.module').then((m) => m.UsersModule),
-      },
-      {
-        path: 'commission',
-        loadChildren: () =>
-          import('./commission/commission.module').then((m) => m.CommissionModule),
       }
     ],
   },

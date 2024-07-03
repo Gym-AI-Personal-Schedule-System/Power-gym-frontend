@@ -60,26 +60,26 @@ export class SidebarService {
       ],
     },
     {
-      tittle: 'Customers',
+      tittle: 'Member',
       showAsTab: true,
       separateRoute: false,
       menu: [
         {
-          menuValue: 'Customers',
+          menuValue: 'Member',
           route: routes.customer,
           hasSubRoute: true,
           showSubRoute: false,
           icon: 'user',
           subMenus: [
             {
-              menuValue: 'Add Customers',
+              menuValue: 'Add member',
               hasSubRoute: false,
               showSubRoute: false,
               route: routes.addCustomer,
               subRoutes: [],
             },
             {
-              menuValue: 'Customers List',
+              menuValue: 'Member list',
               hasSubRoute: false,
               showSubRoute: false,
               route: routes.customerList,
@@ -90,45 +90,38 @@ export class SidebarService {
       ],
     },
     {
-      tittle: 'Products',
+      tittle: 'Schedule',
       showAsTab: true,
       separateRoute: false,
       menu: [
         {
-          menuValue: 'Products',
-          route: routes.product,
+          menuValue: 'Schedule',
+          route: routes.customerList,
           hasSubRoute: true,
           showSubRoute: false,
           icon: 'box',
           subMenus: [
             {
-              menuValue: 'Product Add',
+              menuValue: 'Create Schedule',
               hasSubRoute: false,
               showSubRoute: false,
-              route: routes.addProduct,
+              route: routes.customerList,
               subRoutes: [],
             },
             {
-              menuValue: 'Product List',
+              menuValue: 'Exercise',
               hasSubRoute: false,
               showSubRoute: false,
-              route: routes.productList,
+              route: routes.customerList,
               subRoutes: [],
             },
             {
-              menuValue: 'Category',
+              menuValue: 'Exercise video',
               hasSubRoute: false,
               showSubRoute: false,
-              route: routes.category,
+              route: routes.customerList,
               subRoutes: [],
-            },
-            {
-              menuValue: 'Supplier',
-              hasSubRoute: false,
-              showSubRoute: false,
-              route: routes.supplier,
-              subRoutes: [],
-            },
+            }
           ],
         },
       ],
@@ -146,28 +139,21 @@ export class SidebarService {
           icon: 'user',
           subMenus: [
             {
-              menuValue: 'Add User',
+              menuValue: 'Add user',
               hasSubRoute: false,
               showSubRoute: false,
               route: routes.addUser,
               subRoutes: [],
             },
             {
-              menuValue: 'User List',
+              menuValue: 'User list',
               hasSubRoute: false,
               showSubRoute: false,
               route: routes.userList,
               subRoutes: [],
             },
             {
-              menuValue: 'User Role',
-              hasSubRoute: false,
-              showSubRoute: false,
-              route: routes.userRole,
-              subRoutes: [],
-            },
-            {
-              menuValue: 'User Privilege',
+              menuValue: 'Privilege',
               hasSubRoute: false,
               showSubRoute: false,
               route: routes.userPrivilege,
@@ -184,35 +170,11 @@ export class SidebarService {
       menu: [
         {
           menuValue: 'Report',
-          route: routes.categoryList,
+          route: routes.customerList,
           hasSubRoute: false,
           showSubRoute: false,
           icon: 'bar-chart-2',
           subMenus: [],
-        },
-      ],
-    },
-    {
-      tittle: 'Commission',
-      showAsTab: true,
-      separateRoute: false,
-      menu: [
-        {
-          menuValue: 'Commission',
-          route: routes.commission,
-          hasSubRoute: true,
-          showSubRoute: false,
-          icon: 'dollar-sign',
-          subMenus: [
-            {
-              menuValue: 'Commission Process',
-              hasSubRoute: false,
-              showSubRoute: false,
-              route: routes.commissionProcess,
-              subRoutes: [],
-            },
-
-          ],
         },
       ],
     },

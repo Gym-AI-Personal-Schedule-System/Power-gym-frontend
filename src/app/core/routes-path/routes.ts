@@ -73,30 +73,14 @@ export class routes {
   public static get userPrivilege(): string {
     return this.users + '/user-privilege';
   }
-  public static get userRole(): string {
-    return this.users + '/user-role';
-  }
-
 
   public static get category(): string {
     return this.product + '/category';
   }
 
-  public static get supplier(): string {
-    return this.product + '/supplier';
-  }
 
-  public static get categoryList(): string {
-    return this.category + '/category-list';
-  }
 
-  public static  get commission():string{
-    return this.core + '/commission';
-  }
 
-  public static  get commissionProcess():string{
-    return this.commission + '/commission-process';
-  }
 
 
 }
