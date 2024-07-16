@@ -15,7 +15,6 @@ interface data {
 export class AdduserComponent {
   password='password'
   show = false;
-  isRider:boolean = false;
   public routes = routes;
   userRoles: data[] = [
     {value: 'USER'},
@@ -44,6 +43,8 @@ export class AdduserComponent {
     mobileNum: new FormControl('', [Validators.required,Validators.maxLength(10)]),
     role: new FormControl([''], [Validators.required]),
   });
+  ROLE_ADMIN?: string="admin";
+  ROLE_TRAINER?: string="trainer";
 
   constructor(private storage: WebstorgeService, private authService: AuthService) {
   }
@@ -91,10 +92,5 @@ export class AdduserComponent {
     }
   }
 
-  setRoleSingleValue(value: string) {
-    // @ts-ignore
-    this.form.get('role').setValue([value]);
-    this.isRider = value === 'RIDER';
 
-  }
 }

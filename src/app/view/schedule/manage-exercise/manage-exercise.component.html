@@ -1,0 +1,60 @@
+<div class="page-header">
+  <div class="page-title">
+    <h4>Manage Exercise</h4>
+    <h6>Schedule Wise Exercise Add</h6>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card">
+    <div class="card-body">
+      <form>
+        <div class="row">
+          <div class="col-lg-4 col-sm-6 col-12">
+            <div class="form-group">
+              <label class="required">Select Schedule</label>
+              <mat-select class="select" >
+                <mat-option >test Schedule 01</mat-option>
+                <mat-option >test Schedule 02</mat-option>
+                <mat-option >test Schedule 03</mat-option>
+                <mat-option >test Schedule 04</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="table-responsive">
+<!--            <label style="color: #c92d2d; font-size: 15px;">Selected User Have No Privileges Yet</label>-->
+            <table class="table mb-0">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Exercise Name</th>
+                <th>Sets</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr >
+                <td>1</td>
+                <td>test Exercise Name</td>
+                <td>12/2,22/4</td>
+                <td>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" >
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-12 mt-4">
+          <button type="submit" class="btn btn-submit me-2" >Submit</button>
+          <button type="button" class="btn btn-clear">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

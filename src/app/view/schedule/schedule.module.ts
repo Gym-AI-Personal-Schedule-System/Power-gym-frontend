@@ -1,18 +1,18 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ProductsRoutingModule} from "./products-routing.module";
-import {ProductsComponent} from "./products.component";
+import {ScheduleRoutingModule} from "./schedule-routing.module";
+import {ScheduleComponent} from "./schedule.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
-import {NgbModal, NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
-  declarations: [ProductsComponent],
+  declarations: [ScheduleComponent],
   imports: [
     CommonModule,
-    ProductsRoutingModule,
+    ScheduleRoutingModule,
     FormsModule,
     MatOptionModule,
     MatSelectModule,
@@ -20,5 +20,5 @@ import {NgbModal, NgbModule} from "@ng-bootstrap/ng-bootstrap";
     NgbModule
   ]
 })
-export class ProductsModule {
+export class ScheduleModule {
 }

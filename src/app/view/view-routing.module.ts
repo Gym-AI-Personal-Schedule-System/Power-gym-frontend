@@ -9,19 +9,17 @@ const routes: Routes = [
     component: ViewComponent,
     children: [
       {
-        path: 'product',
+        path: 'schedule',
         loadChildren: () =>
-          import('./products/products.module').then((m) => m.ProductsModule),
+          import('./schedule/schedule.module').then((m) => m.ScheduleModule),
       },
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('./dashboard/dashboard.module').then(
-            (m) => m.DashboardModule
-          ),
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
-        path: 'customers',
+        path: 'member',
         loadChildren: () =>
           import('./customers/customers.module').then((m) => m.CustomersModule),
       },
@@ -29,6 +27,11 @@ const routes: Routes = [
         path: 'user',
         loadChildren: () =>
           import('./users/users.module').then((m) => m.UsersModule),
+      },
+      {
+        path: 'report',
+        loadChildren: () =>
+          import('./report/report.module').then((m) => m.ReportModule),
       }
     ],
   },

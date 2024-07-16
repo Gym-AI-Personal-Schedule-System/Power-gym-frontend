@@ -1,0 +1,77 @@
+<div class="page-header">
+  <div class="page-title">
+    <h4>Exercise</h4>
+    <h6>Add Exercise</h6>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <form >
+      <div class="row">
+
+        <div class="col-lg-3 col-sm-6 col-12">
+          <div class="form-group">
+            <label class="required">Exercise Name</label>
+            <input type="text" formControlName="exerciseName" class="form-control">
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-6 col-12">
+          <div class="form-group">
+            <label class="required" >Video Url</label>
+            <input type="number" formControlName="videoUrl" class="form-control">
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+          <div class="form-group">
+            <label class="required" >Sets</label>
+            <input type="number" formControlName="sets" class="form-control">
+          </div>
+        </div>
+
+        <div class="col-lg-12">
+          <button type="submit" class="btn btn-submit me-2">Submit</button>
+          <button type="button" class="btn btn-cancel">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="page-header">
+  <div class="page-title">
+    <h4>Exercise list</h4>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+
+    <div class="table-responsive">
+      <table
+        matSort
+        matSortActive="Sno"
+        matSortDirection="asc"
+        matSortDisableClear class="table datanew">
+        <thead>
+        <tr>
+          <th mat-sort-header="CustomerName">Exercise Name</th>
+          <th mat-sort-header="mobileNumOne">Video URL</th>
+          <th mat-sort-header="address">Sets</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+

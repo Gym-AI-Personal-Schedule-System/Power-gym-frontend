@@ -1,0 +1,18 @@
+{
+  "statusCode": 200,
+  "message": "success",
+  "data": [
+    {
+      "title": "ROLE_ADMIN",
+      "value": "admin"
+    },
+    {
+      "title": "ROLE_TRAINER",
+      "value": "trainer"
+    },
+    {
+      "title": "ROLE_MEMBER",
+      "value": "member"
+    }
+    ]
+  }
