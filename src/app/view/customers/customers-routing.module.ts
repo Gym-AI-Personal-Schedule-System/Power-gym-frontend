@@ -3,20 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 import {CustomersComponent} from "./customers.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'customer-list', pathMatch: 'full' },
+  { path: '', redirectTo: 'member', pathMatch: 'full' },
   {
     path: '',
     component: CustomersComponent,
     children: [
       {
-        path: 'customer-list',
+        path: 'member-list',
         loadChildren: () =>
           import('./memberlist/memberlist.module').then(
             (m) => m.MemberlistModule
           ),
       },
       {
-        path: 'add-customer',
+        path: 'add-member',
         loadChildren: () =>
           import('./addmember/addmember.module').then(
             (m) => m.AddmemberModule

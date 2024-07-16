@@ -5,6 +5,8 @@ import { AddmemberRoutingModule } from './addmember-routing.module';
 import { AddmemberComponent } from './addmember.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -17,6 +19,8 @@ import {NgSelectModule} from "@ng-select/ng-select";
     CommonModule,
     AddmemberRoutingModule,
     NgSelectModule,
+    MatOptionModule,
+    MatSelectModule,
 
   ]
 })

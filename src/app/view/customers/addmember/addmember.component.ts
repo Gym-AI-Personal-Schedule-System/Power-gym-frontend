@@ -12,6 +12,8 @@ import Swal from "sweetalert2";
 })
 export class AddmemberComponent  {
   customerForm: FormGroup;
+  Female?:string= "Female";
+  Male?:string="Male";
 
 
 

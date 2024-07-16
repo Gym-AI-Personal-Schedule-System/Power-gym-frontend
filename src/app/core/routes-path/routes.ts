@@ -34,32 +34,57 @@ export class routes {
   public static get core(): string {
     return this.baseUrl;
   }
+
+
   public static get dashboard(): string {
     return this.core + '/dashboard';
   }
 
-  public static get customerList(): string {
-    return this.customer + '/customer-list';
+
+
+
+  public static get member(): string {
+    return this.core + '/member';
   }
 
-  public static get addCustomer(): string {
-    return this.customer + '/add-customer';
+  public static get memberList(): string {
+    return this.member + '/member-list';
   }
+
+  public static get addMember(): string {
+    return this.member + '/add-member';
+  }
+
+
+  public static get schedule(): string {
+    return this.core + '/schedule';
+  }
+  public static get generateSchedule(): string {
+    return this.schedule + '/create-schedule';
+  }
+  public static get addExercise(): string {
+    return this.schedule + '/add-exercise';
+  }
+ public static get viewExercise(): string {
+    return this.schedule + '/view-exercise';
+  }
+  public static get manageExercise(): string {
+    return this.schedule + '/manage-exercise';
+  }
+
+
 
   public static get productList(): string {
     return this.product + '/product-list';
   }
-  public static get addProduct(): string {
-    return this.product + '/add-product';
-  }
 
-  public static get customer(): string {
-    return this.core + '/customers';
-  }
 
   public static get product(): string {
     return this.core + '/product';
   }
+
+
+
 
   public static get users(): string {
     return this.core + '/user';
@@ -72,10 +97,6 @@ export class routes {
   }
   public static get userPrivilege(): string {
     return this.users + '/user-privilege';
-  }
-
-  public static get category(): string {
-    return this.product + '/category';
   }
 
 

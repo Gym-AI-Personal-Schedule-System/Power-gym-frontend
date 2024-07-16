@@ -45,7 +45,7 @@ export class SidebarService {
 
   public sidebarData1 = [
     {
-      tittle: 'Main',
+      tittle: 'Dashboard',
       showAsTab: true,
       separateRoute: false,
       menu: [
@@ -66,7 +66,7 @@ export class SidebarService {
       menu: [
         {
           menuValue: 'Member',
-          route: routes.customer,
+          route: routes.member,
           hasSubRoute: true,
           showSubRoute: false,
           icon: 'user',
@@ -75,14 +75,14 @@ export class SidebarService {
               menuValue: 'Add member',
               hasSubRoute: false,
               showSubRoute: false,
-              route: routes.addCustomer,
+              route: routes.addMember,
               subRoutes: [],
             },
             {
               menuValue: 'Member list',
               hasSubRoute: false,
               showSubRoute: false,
-              route: routes.customerList,
+              route: routes.memberList,
               subRoutes: [],
             },
           ],
@@ -96,7 +96,7 @@ export class SidebarService {
       menu: [
         {
           menuValue: 'Schedule',
-          route: routes.customerList,
+          route: routes.schedule,
           hasSubRoute: true,
           showSubRoute: false,
           icon: 'box',
@@ -105,21 +105,28 @@ export class SidebarService {
               menuValue: 'Create Schedule',
               hasSubRoute: false,
               showSubRoute: false,
-              route: routes.customerList,
+              route: routes.generateSchedule,
+              subRoutes: [],
+            },
+            {
+              menuValue: 'Add Exercise',
+              hasSubRoute: false,
+              showSubRoute: false,
+              route: routes.addExercise,
               subRoutes: [],
             },
             {
               menuValue: 'Exercise',
               hasSubRoute: false,
               showSubRoute: false,
-              route: routes.customerList,
+              route: routes.viewExercise,
               subRoutes: [],
             },
             {
-              menuValue: 'Exercise video',
+              menuValue: 'Manage Exercise',
               hasSubRoute: false,
               showSubRoute: false,
-              route: routes.customerList,
+              route: routes.manageExercise,
               subRoutes: [],
             }
           ],
@@ -170,7 +177,7 @@ export class SidebarService {
       menu: [
         {
           menuValue: 'Report',
-          route: routes.customerList,
+          route: routes.memberList,
           hasSubRoute: false,
           showSubRoute: false,
           icon: 'bar-chart-2',

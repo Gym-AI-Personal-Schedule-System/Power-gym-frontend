@@ -4,11 +4,9 @@ import {ApiResultFormatModel} from "../../../../api-service/model/common/ApiResu
 import {UserModel} from "../../../../api-service/model/UserModel";
 import {PrivilegeService} from 'src/api-service/service/PrivilegeService';
 import Swal from 'sweetalert2';
+import {RoleService} from "../../../../api-service/service/RoleService";
+import {RoleModel} from "../../../../api-service/model/RoleModel";
 
-interface data {
-  value: string;
-  label: string;
-}
 
 @Component({
   selector: 'app-user-privilege',
@@ -16,34 +14,38 @@ interface data {
   styleUrls: ['./user-privilege.component.scss']
 })
 export class UserPrivilegeComponent {
-  public userList: Array<UserModel> = [];
   public privilegeList = [];
   public userWisePrivilegeList = [];
   public checkedIds = [];
   public unCheckedIds = [];
   public tempIdList = [];
   public selectedUserCode: string;
+  public userRoles:Array<RoleModel>=[] ;
 
   emptyUsersForRole= false;
   emptyUserPrivileges= false;
   disableSubmitBtn= false;
 
-  userRoles: data[] = [
-    { label: 'ROLE_SUPER_ADMIN', value: 'super-admin' },
-    { label: 'ROLE_ADMIN', value: 'admin' },
-    { label: 'ROLE_DOCTOR', value: 'doctor' },
-    { label: 'ROLE_MANAGER', value: 'manager' },
-    { label: 'ROLE_MARKETING', value: 'marketing' },
-    { label: 'ROLE_MARKETING_MANAGER', value: 'marketing-manager' },
-    { label: 'ROLE_ACCOUNTANT', value: 'accountant' },
-    { label: 'ROLE_ACCOUNTANT_MANAGER', value: 'accountant-manager' },
-    { label: 'ROLE_PRODUCTION_MANAGER', value: 'production-manager' },
-    { label: 'ROLE_STORE_KEEPER', value: 'store-keeper' },
-    { label: 'ROLE_RIDER', value: 'rider' },
-  ];
 
-  constructor(private userService: UserService, private privilegeService: PrivilegeService) {
+
+  constructor(private userService: UserService,
+              private privilegeService: PrivilegeService,
+              private roleService: RoleService) {
     this.getAllPrivilagesList();
+    this.getAllRollList()
+
+  }
+
+
+  getAllRollList() {
+    this.roleService.getAllRollList().subscribe((values: ApiResultFormatModel) => {
+      if (values.statusCode == 200) {
+        values.data.forEach((role: any) => {
+          const rols: RoleModel = role;
+          this.userRoles.push(rols)
+        })
+      }
+    });
   }
 
   getAllPrivilagesList() {
@@ -61,29 +63,11 @@ export class UserPrivilegeComponent {
   }
 
   setRoleSingleValue(value: string) {
-    this.getUsersListForRole(value);
     this.getAllPrivilagesList();
     this.selectedUserCode ='';
     this.resetLists();
   }
 
-  getUsersListForRole(role: string) {
-    const payload = {
-      roles: [role]
-    }
-    this.userList = [];
-    this.emptyUsersForRole = false;
-    this.userService.getUserRolWiseUser(payload).subscribe((value: ApiResultFormatModel) => {
-      if (value.statusCode == 200) {
-        value.data.forEach((rider: any) => {
-          const riderData: UserModel = rider;
-          this.userList.push(riderData)
-        })
-      }
-    }, error => {
-      this.emptyUsersForRole = true;
-    })
-  }
 
   selectUser(value: string) {
     this.resetLists();
@@ -111,7 +95,7 @@ export class UserPrivilegeComponent {
   }
 
   togglePrivilegeCheckbox(event: any, data: any) {
-    let hasPrivilageId = this.tempIdList.some(num => num === data.privilegeId);
+    const hasPrivilageId = this.tempIdList.some(num => num === data.privilegeId);
       // ||
       // this.userWisePrivilegeList.some(item => item.privilegeId === data.privilegeId);
 
