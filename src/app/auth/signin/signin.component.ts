@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { routes } from 'src/app/core/routes-path/routes';
-import { WebstorgeService } from 'src/app/shared/webstorge.service';
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {routes} from 'src/app/core/routes-path/routes';
+import {WebstorgeService} from 'src/app/shared/webstorge.service';
 import {AuthService} from "../../../api-service/service/AuthService";
 import Swal from "sweetalert2";
 
@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
 })
-export class SigninComponent implements OnInit{
+export class SigninComponent {
   public routes = routes;
   password = 'password';
   show = false;
@@ -28,24 +28,20 @@ export class SigninComponent implements OnInit{
 
   }
 
-  ngOnInit() {
-    // localStorage.clear();
-  }
-
 
   submit() {
     if (this.form.valid) {
       this.authService.signIn(this.form.value).subscribe(
-        data=>{
+        data => {
           console.log(data)
           this.storage.login(data);
         },
         error => {
-Swal.fire(
-  '',
-  error.error.message,
-  'error'
-)
+          Swal.fire(
+            '',
+            error.error.message,
+            'error'
+          )
         }
       )
     } else {

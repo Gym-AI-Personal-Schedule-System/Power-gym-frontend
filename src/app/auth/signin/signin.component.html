@@ -14,11 +14,11 @@
         </div>
         <form [formGroup]="form">
           <div class="form-login">
-            <label>Email</label>
+            <label>User name</label>
             <div class="form-addons">
               <input
                 type="text"
-                placeholder="Enter your email address"
+                placeholder="Enter your User name"
                 formControlName="username"
                 id="email"
                 [ngClass]="{
@@ -31,7 +31,7 @@
                 class="invalid-feedback"
               >
                 <div *ngIf="f['username'].errors && f['username'].errors['required']">
-                  Email is required.
+                  User name is required.
                 </div>
               </div>
             </div>
