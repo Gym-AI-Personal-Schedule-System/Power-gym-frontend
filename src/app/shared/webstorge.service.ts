@@ -19,8 +19,7 @@ export class WebstorgeService {
     sessionStorage.setItem('token', data.token);
     sessionStorage.setItem('userId', data.userCode);
     sessionStorage.setItem('privilegeIds', data.privilegeIds);
-    sessionStorage.setItem('clientID',data.clientId);
-    sessionStorage.setItem('userApiKey',data.apiKey);
+
     this.router.navigate([routes.dashboard]);
   }
   public submit(): void {
