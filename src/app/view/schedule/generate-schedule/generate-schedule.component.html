@@ -66,11 +66,17 @@
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
+            <label class="required">Experience</label>
+            <input type="text" formControlName="experience" class="form-control">
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+          <div class="form-group">
             <label class="required">Choose Fitness Goal</label>
             <mat-select class="select" formControlName="fitnessGoal" placeholder="Select">
               <mat-option value="General Health">General Health</mat-option>
-              <mat-option value="Weight Gain">Weight Gain</mat-option>
               <mat-option value="Muscle Gain">Muscle Gain</mat-option>
+              <mat-option value="Weight Gain">Weight Gain</mat-option>
               <mat-option value="Weight Loss">Weight Loss</mat-option>
             </mat-select>
           </div>

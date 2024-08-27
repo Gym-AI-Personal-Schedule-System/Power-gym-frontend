@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ScheduleService} from "../../../../api-service/service/ScheduleService";
 import Swal from 'sweetalert2';
+import {ScheduleModel} from "../../../../api-service/model/ScheduleModel";
 
 @Component({
   selector: 'app-generate-schedule',
@@ -23,6 +24,7 @@ export class GenerateScheduleComponent {
       bmi: ['', Validators.required],
       workoutTime: ['', Validators.required],
       fitnessGoal: ['', Validators.required],
+      experience: ['', Validators.required],
       aiSchedule: ['']
     });
 
@@ -38,27 +40,41 @@ export class GenerateScheduleComponent {
     if (height && weight) {
       const heightInMeters = height / 100;
       const bmi = weight / (heightInMeters * heightInMeters);
-      this.scheduleForm.patchValue({ bmi: bmi.toFixed(2) });
+      this.scheduleForm.patchValue({ bmi: bmi.toFixed(1) });
     }
   }
 
 
   generateSchedule() {
     if (this.scheduleForm.valid) {
-      const payload = this.scheduleForm.value; // get the form values
+
+      const formValues = this.scheduleForm.value;
+      // Create an instance of ScheduleModel with the form values
+      const payload = new ScheduleModel(
+        formValues.age,
+        formValues.experience,
+        formValues.workoutTime,
+        formValues.weight,
+        formValues.height,
+        formValues.bmi,
+        formValues.gender,
+        formValues.fitnessGoal
+      );
 
       // Call the service method
       this.scheduleService.generateSchedule(payload).subscribe({
         next: (response) => {
           if (response.statusCode === 200) {
-            // Extract prediction data from response
-            const prediction = response.data?.prediction?.[0] || [];
 
-            // Convert prediction array to a readable format
-            const aiScheduleValue = prediction.join(', '); // Convert array to a comma-separated string
+            const scheduleValue = response.data?.scheduleValue;
 
-            // Set the value of the aiSchedule form control
-            this.scheduleForm.patchValue({ aiSchedule: aiScheduleValue });
+            // Set the value of the aiSchedule form control if scheduleValue exists
+            if (scheduleValue) {
+              this.scheduleForm.patchValue({ aiSchedule: scheduleValue });
+            } else {
+              // Handle case where scheduleValue is null or undefined
+              this.scheduleForm.patchValue({ aiSchedule: '' });
+            }
 
             Swal.fire({
               icon: 'success',
