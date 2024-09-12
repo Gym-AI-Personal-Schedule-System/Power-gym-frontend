@@ -24,5 +24,9 @@ export class PrivilegeService {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
     return this.http.post<any>(environment.baseURL + 'privilege/assign-privileges', payload, {headers});
   }
+  public getRoleWisePrivilege(payload: any): Observable<ApiResultFormatModel> {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.post<ApiResultFormatModel>(this.SERVER + 'privilege/getRoleWisePrivileges', payload, { headers });
+  }
 
 }

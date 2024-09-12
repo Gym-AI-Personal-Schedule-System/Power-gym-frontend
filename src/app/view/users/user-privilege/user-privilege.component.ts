@@ -14,22 +14,21 @@ import {RoleModel} from "../../../../api-service/model/RoleModel";
   styleUrls: ['./user-privilege.component.scss']
 })
 export class UserPrivilegeComponent {
-  public privilegeList = [];
-  public userWisePrivilegeList = [];
-  public checkedIds = [];
-  public unCheckedIds = [];
-  public tempIdList = [];
-  public selectedUserCode: string;
-  public userRoles:Array<RoleModel>=[] ;
+  public privilegeList: any[] = [];
+  public roleWisePrivilegeList: any[] = [];
+  public checkedIds: number[] = [];
+  public unCheckedIds: number[] = [];
+  public tempIdList: number[] = [];
+  public selecteRole!: string;
+  public userRoles: Array<RoleModel> = [];
 
-  emptyUsersForRole= false;
-  emptyUserPrivileges= false;
-  disableSubmitBtn= false;
+  public showSubmitButton = false;
+  public emptyUserPrivileges = false;
+  public disableSubmitBtn = false;
 
 
 
-  constructor(private userService: UserService,
-              private privilegeService: PrivilegeService,
+  constructor(private privilegeService: PrivilegeService,
               private roleService: RoleService) {
     this.getAllPrivilagesList();
     this.getAllRollList()
@@ -38,66 +37,54 @@ export class UserPrivilegeComponent {
 
 
   getAllRollList() {
-    this.roleService.getAllRollList().subscribe((values: ApiResultFormatModel) => {
-      if (values.statusCode == 200) {
-        values.data.forEach((role: any) => {
-          const rols: RoleModel = role;
-          this.userRoles.push(rols)
-        })
+    this.roleService.getAllRollList().subscribe((response: ApiResultFormatModel) => {
+      if (response.statusCode === 200) {
+        this.userRoles = response.data;
       }
     });
   }
 
   getAllPrivilagesList() {
-    this.privilegeList = [];
-    this.userWisePrivilegeList = [];
-    this.privilegeService.getAllPrivileges().subscribe((value: ApiResultFormatModel) => {
-      if (value.statusCode == 200) {
-        value.data.forEach((privilege: any) => {
-          this.privilegeList.push(privilege)
-        })
+    this.privilegeService.getAllPrivileges().subscribe((response: ApiResultFormatModel) => {
+      if (response.statusCode === 200) {
+        this.privilegeList = response.data;
       }
-
-    }
-    );
+    });
   }
 
   setRoleSingleValue(value: string) {
-    this.getAllPrivilagesList();
-    this.selectedUserCode ='';
     this.resetLists();
-  }
+    this.selecteRole = value;
+    const payload = { role: value };
 
-
-  selectUser(value: string) {
-    this.resetLists();
-    this.selectedUserCode = value;
-    const payload = {
-      userCode: value
-    }
-
-    this.userService.getUserWiseUserPrivilege(payload).subscribe((value: ApiResultFormatModel) => {
-      if (value.statusCode == 200) {
-        value.data.forEach((userWisePrivilege: any) => {
-          this.userWisePrivilegeList.push(userWisePrivilege)
-
-        })
-      }
-    }, error=>{
+    this.privilegeService.getRoleWisePrivilege(payload).subscribe(
+      (response: ApiResultFormatModel) => {
+        if (response.statusCode === 200) {
+          this.roleWisePrivilegeList = response.data;
+          this.emptyUserPrivileges = this.roleWisePrivilegeList.length === 0;
+        } else {
+          this.emptyUserPrivileges = true;
+        }
+      },
+      () => {
         this.emptyUserPrivileges = true;
       }
     );
-
   }
+
 
   isPrivilegeChecked(privilegeId: number): boolean {
-    return this.userWisePrivilegeList.some(item => item.privilegeId === privilegeId);
+    return this.roleWisePrivilegeList.some(item => item.privilegeId === privilegeId);
   }
+
+
+
+
 
   togglePrivilegeCheckbox(event: any, data: any) {
     const hasPrivilageId = this.tempIdList.some(num => num === data.privilegeId);
-      // ||
-      // this.userWisePrivilegeList.some(item => item.privilegeId === data.privilegeId);
+    // ||
+    // this.userWisePrivilegeList.some(item => item.privilegeId === data.privilegeId);
 
     if (!hasPrivilageId) {
       // id not in list
@@ -110,8 +97,6 @@ export class UserPrivilegeComponent {
       }
 
     } else {
-      // id already in list
-      // this.tempIdList = this.tempIdList.filter(num => num !== data.privilegeId);
       if (event.target.checked) {
         this.unCheckedIds = this.unCheckedIds.filter(num => num !== data.privilegeId);
       } else {
@@ -119,80 +104,83 @@ export class UserPrivilegeComponent {
       }
     }
 
-    console.log('checked list')
-    console.log(this.checkedIds)
-    console.log('unchecked list')
-    console.log(this.unCheckedIds)
+
+    // Show the submit button if any changes are made
+    this.showSubmitButton = this.checkedIds.length > 0 || this.unCheckedIds.length > 0;
+
+    console.log('checked list', this.checkedIds);
+    console.log('unchecked list', this.unCheckedIds);
   }
 
-  onSubmit() {
+
+
+
+  submitPrivileges() {
     let checkedListBool = false;
     let unCheckedListBool = false;
     this.disableSubmitBtn = true;
 
+    // select check box save
     if (this.checkedIds.length > 0) {
-      console.log('cjeck')
       const payload = {
-        userCode: this.selectedUserCode,
+        role: this.selecteRole,
         privilegeIds: this.checkedIds,
         status: 1
-      }
+      };
 
       this.privilegeService.assignPrivileges(payload).subscribe((value: ApiResultFormatModel) => {
         if (value.statusCode == 200) {
-         checkedListBool = true;
+          checkedListBool = true;
         }
-      }
-      );
-
+      });
     }
 
-
+    // un select chck box save
     if (this.unCheckedIds.length > 0) {
-      console.log('uncjeck')
       const payload = {
-        userCode: this.selectedUserCode,
+        role: this.selecteRole,
         privilegeIds: this.unCheckedIds,
         status: 0
-      }
+      };
 
       this.privilegeService.assignPrivileges(payload).subscribe((value: ApiResultFormatModel) => {
         if (value.statusCode == 200) {
           unCheckedListBool = true;
         }
-      }
-      );
+      });
     }
 
-    console.log('checkedListBool :'+checkedListBool)
-    console.log('unCheckedListBool :'+unCheckedListBool)
-    // if (unCheckedListBool || checkedListBool){
-
     setTimeout(() => {
-      Swal.fire({
-        title: '',
-        text: 'Privilege Updated!',
-        icon: 'success',
-        confirmButtonText: 'OK',
-        allowOutsideClick: false,
-        showConfirmButton: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.resetLists();
-          this.selectUser(this.selectedUserCode);
-          this.disableSubmitBtn = false;
-          window.scrollTo({ top: 0 });
-        }
-      });
-    }, 3000)
+      if (checkedListBool || unCheckedListBool) {
+        Swal.fire({
+          title: '',
+          text: 'Privilege Updated!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          allowOutsideClick: false,
+          showConfirmButton: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.resetLists();
+            this.setRoleSingleValue(this.selecteRole);
+            this.disableSubmitBtn = false;
+            window.scrollTo({ top: 0 });
+            // Hide the submit button after submission
+            this.showSubmitButton = false;
+          }
+        });
+      }
+    }, 3000);
   }
 
-  resetLists(){
-    this.userWisePrivilegeList = [];
-    this.tempIdList =[];
-    this.checkedIds =[];
-    this.unCheckedIds =[];
-    this.emptyUserPrivileges =false;
-  }
 
+
+
+  resetLists() {
+    this.roleWisePrivilegeList = [];
+    this.tempIdList = [];
+    this.checkedIds = [];
+    this.unCheckedIds = [];
+    this.emptyUserPrivileges = false;
+  }
 }
