@@ -16,13 +16,13 @@ export class PrivilegeService {
 
   getAllPrivileges() {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.post<any>(environment.baseURL + 'privilege/get-all-privileges', null, {headers});
+    return this.http.post<any>(environment.baseURL + 'privilege/getAllPrivileges', null, {headers});
   }
 
 
   assignPrivileges(payload: any) {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.post<any>(environment.baseURL + 'privilege/assign-privileges', payload, {headers});
+    return this.http.post<any>(environment.baseURL + 'privilege/assignPrivileges', payload, {headers});
   }
   public getRoleWisePrivilege(payload: any): Observable<ApiResultFormatModel> {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));

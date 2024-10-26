@@ -16,4 +16,14 @@ export  class ScheduleService{
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
     return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/generateSchedule', payLoad, { headers });
   }
+
+  getUserScheduleCreateDates(payLoad: any) {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/getUserScheduleCreateDates', payLoad, { headers });
+  }
+
+  getUserWiseSchedule(payLoad: any) {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/getUserWiseSchedule', payLoad, { headers });
+  }
 }

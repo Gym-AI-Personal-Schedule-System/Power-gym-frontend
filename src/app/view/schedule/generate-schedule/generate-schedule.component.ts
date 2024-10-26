@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ScheduleService} from "../../../../api-service/service/ScheduleService";
 import Swal from 'sweetalert2';
 import {ScheduleModel} from "../../../../api-service/model/ScheduleModel";
+import {UserService} from "../../../../api-service/service/UserService";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-generate-schedule',
@@ -16,20 +19,24 @@ export class GenerateScheduleComponent {
   bmiType="";
   loading = false;
   isAISchedule= false;
+  exerciseList: any[] = [];
+  sanitizedVideoUrl: SafeResourceUrl | null = null;
 
-  constructor(private fb: FormBuilder, private scheduleService: ScheduleService) {
+
+  constructor(private fb: FormBuilder, private scheduleService: ScheduleService,private userService: UserService,
+              private sanitizer: DomSanitizer, private modalService: NgbModal) {
     // Initialize form group with form controls
     this.scheduleForm = this.fb.group({
       mobileNumOne: ['', Validators.required],
       MemberName: ['', Validators.required],
       age: ['', [Validators.required, Validators.min(1)]],
       gender: ['', Validators.required],
-      height: ['', Validators.required],
-      weight: ['', Validators.required],
-      bmi: ['', Validators.required],
-      workoutTime: ['', Validators.required],
+      height: ['0', Validators.required],
+      weight: ['0', Validators.required],
+      bmi: ['0', Validators.required],
+      workoutTime: ['0', Validators.required],
       fitnessGoal: ['', Validators.required],
-      experience: ['', Validators.required],
+      experience: ['0', Validators.required],
       aiSchedule: ['']
     });
 
@@ -38,7 +45,18 @@ export class GenerateScheduleComponent {
     this.scheduleForm.get('weight')?.valueChanges.subscribe(() => this.calculateBMI());
   }
 
+  openVideoPopup(videoUrl: string, content: TemplateRef<any>) {
+    const videoId = this.extractYouTubeVideoId(videoUrl);
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    this.sanitizedVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
+    this.modalService.open(content, { size: 'lg', backdrop: 'static' });
+  }
 
+  extractYouTubeVideoId(url: string): string | null {
+    const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  }
 
   // Method to calculate BMI
   calculateBMI() {
@@ -120,7 +138,8 @@ export class GenerateScheduleComponent {
         formValues.height,
         formValues.bmi,
         formValues.gender,
-        formValues.fitnessGoal
+        formValues.fitnessGoal,
+        formValues.mobileNumOne
       );
 
       // Call the service method
@@ -143,6 +162,9 @@ export class GenerateScheduleComponent {
               this.scheduleForm.patchValue({ aiSchedule: '' });
             }
 
+            this.exerciseList = response.data.scheduleDTOList.map(dto => dto.exerciseDetails);
+            this.isAISchedule = true;
+            // this.exerciseList = response.data.scheduleDTOList;
             // Swal.fire({
             //   icon: 'success',
             //   title: 'Success!',
@@ -164,7 +186,7 @@ export class GenerateScheduleComponent {
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'There was an error generating the schedule. Please try again later.',
+            text: error.error.message,
             confirmButtonText: 'OK'
           });
         }
@@ -177,5 +199,78 @@ export class GenerateScheduleComponent {
         confirmButtonText: 'OK'
       });
     }
+  }
+
+  isValidValue(value: any): boolean {
+    return value !== null && value !== undefined && value !== '';
+  }
+
+  searchUser() {
+    const mobileNum = this.scheduleForm.get('mobileNumOne')?.value;
+
+    if (!mobileNum) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Input',
+        text: 'Please enter a valid contact number.',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+    const payload = { mobileNum: mobileNum }; // Send mobileNum as payload to the service
+
+    this.userService.getUserDataByMobileNumber(payload).subscribe({
+      next: (response) => {
+        if (response.statusCode === 200 && response.data) {
+          const userData = response.data;
+          console.log(JSON.stringify(userData))
+          // Patch the form with user data
+          this.scheduleForm.patchValue({
+            MemberName: this.isValidValue(userData.name) ? userData.name : '',
+            mobileNumOne: this.isValidValue(userData.mobileNum) ? userData.mobileNum : '',
+            age: this.isValidValue(userData.age) ? userData.age : '0',
+            height: this.isValidValue(userData.height) ? userData.height : '0',
+            weight: this.isValidValue(userData.weight) ? userData.weight : '0',
+            bmi: this.isValidValue(userData.bmi) ? userData.bmi : '0'
+          });
+
+          if (userData.gender) {
+            this.scheduleForm.patchValue({
+              gender: userData.gender
+            });
+          }
+          this.calculateBMI();
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'User Not Found',
+            text: `No user found with the provided contact number.`,
+            confirmButtonText: 'OK'
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching user data', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.error.message,
+          confirmButtonText: 'OK'
+        });
+        this.bmiUIChange(0);
+        this.scheduleForm.reset({
+          mobileNumOne: '',
+          MemberName: '',
+          age: '',
+          gender: '',
+          height: '',
+          weight: '',
+          bmi: ''
+        });
+
+
+
+      }
+    });
   }
 }

@@ -6,6 +6,7 @@
 </div>
 
 <div class="row">
+  <!-- Left side (Schedule and Exercises Table) -->
   <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
     <div class="card">
       <div class="card-body">
@@ -13,16 +14,16 @@
           <div class="row">
             <div class="col-lg-4 col-sm-6 col-12">
               <div class="form-group">
-                <label >Schedule</label>
-                <mat-select class="select" >
-                  <mat-option >test Schedule 01</mat-option>
+                <label>Schedule</label>
+                <mat-select class="select" [(ngModel)]="selectedDate" (selectionChange)="getExerciseList(selectedDate)">
+                  <mat-option *ngFor="let date of scheduleDates" [value]="date">{{date | date: 'yyyy-MM-dd'}}</mat-option> <!-- Display formatted dates -->
                 </mat-select>
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="table-responsive">
-              <!--            <label style="color: #c92d2d; font-size: 15px;">Selected User Have No Privileges Yet</label>-->
               <table class="table mb-0">
                 <thead>
                 <tr>
@@ -33,13 +34,13 @@
                 </tr>
                 </thead>
                 <tbody>
-
-                <tr >
-                  <td>1</td>
-                  <td>test Exercise Name</td>
-                  <td>12/2,22/4</td>
+                <!-- Iterate through the exercises array and display the data -->
+                <tr *ngFor="let exercise of exercises; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ exercise.exerciseDetails.exercise.exerciseName }}</td>
+                  <td>{{ exercise.exerciseDetails.sets }}</td>
                   <td>
-                    <a type="button" class="btn-edit-table" style="border-radius: 10px;"> View</a>
+                    <a type="button" class="btn-edit-table" style="border-radius: 10px;" (click)="playVideo(exercise.exerciseDetails.exercise.video_url)">View</a>
                   </td>
                 </tr>
                 </tbody>
@@ -51,11 +52,10 @@
     </div>
   </div>
 
-
+  <!-- Right side (Video display) -->
   <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-    <div class="video-container">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/tOWfExv_hIw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="video-container" *ngIf="videoUrl">
+      <iframe [src]="videoUrl " width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </div>
-
 </div>

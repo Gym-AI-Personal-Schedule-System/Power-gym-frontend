@@ -17,7 +17,7 @@
             <div class="form-group">
               <label class="required">Choose User Role</label>
               <mat-select class="select" placeholder="Select" (selectionChange)="setRoleSingleValue($event.value)">
-                <mat-option *ngFor="let data of userRoles" [value]="data.value">
+                <mat-option *ngFor="let data of userRoles" [value]="data.title">
                   {{ data.title}}
                 </mat-option>
               </mat-select>

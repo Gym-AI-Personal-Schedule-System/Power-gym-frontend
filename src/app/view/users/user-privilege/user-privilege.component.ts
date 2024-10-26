@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
-import {UserService} from "../../../../api-service/service/UserService";
 import {ApiResultFormatModel} from "../../../../api-service/model/common/ApiResultFormatModel";
-import {UserModel} from "../../../../api-service/model/UserModel";
 import {PrivilegeService} from 'src/api-service/service/PrivilegeService';
 import Swal from 'sweetalert2';
 import {RoleService} from "../../../../api-service/service/RoleService";
