@@ -1,42 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { Sort } from '@angular/material/sort';
-import {
-  ApexAxisChartSeries,
-  ApexChart,
-  ChartComponent,
-  ApexDataLabels,
-  ApexPlotOptions,
-  ApexYAxis,
-  ApexXAxis,
-  ApexResponsive,
-  ApexLegend,
-  ApexFill,
-} from 'ng-apexcharts';
-import {  SettingsService } from 'src/app/core/core.index';
-
-export type ChartOptions = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  series: ApexAxisChartSeries | any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  chart: ApexChart | any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  responsive: ApexResponsive | any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  colors: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dataLabels: ApexDataLabels | any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  plotOptions: ApexPlotOptions | any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  yaxis: ApexYAxis | any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  xaxis: ApexXAxis | any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  legend: ApexLegend | any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fill: ApexFill | any;
-};
-import { routes } from 'src/app/core/routes-path/routes';
+import {Component} from '@angular/core';
+import {routes} from 'src/app/core/routes-path/routes';
+import {ChartData, ChartOptions} from "chart.js";
+import {UserService} from "../../../api-service/service/UserService";
 
 @Component({
   selector: 'app-dashboard',
@@ -45,187 +10,85 @@ import { routes } from 'src/app/core/routes-path/routes';
 })
 export class DashboardComponent {
   public routes = routes;
+  public ageData = [];
+  // public ageData = [
+  //   {age: 20, count: 10},
+  //   {age: 22, count: 2},
+  //   {age: 25, count: 5},
+  //   {age: 30, count: 8},
+  //   {age: 35, count: 3},
+  //   {age: 40, count: 7},
+  //   {age: 50, count: 7},
+  // ];
 
-  @ViewChild('chart') chart!: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
-  public currency!: string;
-  public recentlyAddedProducts = [
-    {
-      Sno: '1',
-      img: 'assets/img/product/product22.jpg',
-      Products: 'Apple Earpods',
-      Price: 899,
-    },
-    {
-      Sno: '2',
-      img: 'assets/img/product/product23.jpg',
-      Products: 'iPhone 11',
-      Price: 668.51,
-    },
-    {
-      Sno: '3',
-      img: 'assets/img/product/product24.jpg',
-      Products: 'samsung',
-      Price: 5,
-    },
-    {
-      Sno: '4',
-      img: 'assets/img/product/product6.jpg',
-      Products: 'Macbook Pro',
-      Price: 29.01,
-    },
-  ];
+  constructor(private userService: UserService) {
+    this.LoadAgeWiseUserData();
+    // this.updateChartData();
+  }
 
-  public expiredProducts = [
-    {
-      SNo: '1',
-      ProductCode: 'IT0001',
-      ProductName: 'Test',
-      img: 'assets/img/product/product2.jpg',
-      BrandName: 'N/D',
-      CategoryName: 'Fruits',
-      ExpiryDate: '12-12-2022',
-    },
-    {
-      SNo: '2',
-      ProductCode: 'IT0002',
-      ProductName: 'Test',
-      img: 'assets/img/product/product3.jpg',
-      BrandName: 'N/D',
-      CategoryName: 'Fruits',
-      ExpiryDate: '25-11-2022',
-    },
-    {
-      SNo: '3',
-      ProductCode: 'IT0003',
-      ProductName: 'Test',
-      img: 'assets/img/product/product4.jpg',
-      BrandName: 'N/D',
-      CategoryName: 'Fruits',
-      ExpiryDate: '19-11-2022',
-    },
-    {
-      SNo: '4',
-      ProductCode: 'IT0004',
-      ProductName: 'Test',
-      img: 'assets/img/product/product5.jpg',
-      BrandName: 'N/D',
-      CategoryName: 'Fruits',
-      ExpiryDate: '20-11-2022',
-    },
-  ];
+  private LoadAgeWiseUserData() {
+    this.userService.getAgeWiseMemberCount().subscribe(value => {
+      if (value.statusCode === 200) {
+        this.ageData = value.data;
+        this.updateChartData();  // Update chart data with new backend values
+      }
+    });
+  }
 
-  constructor( private setting : SettingsService) {
-    this.chartOptions = {
-      series: [
-        {
-          name: 'Sales',
-          color: '#EA5455',
-          data: [50, 45, 60, 70, 50, 45, 60, 70],
-        },
-        {
-          name: 'Purchase',
-          color: '#28C76F',
-          data: [-21, -54, -45, -35, -21, -54, -45, -35],
-        },
-      ],
-      chart: {
-        type: 'bar',
-        height: 300,
-        stacked: true,
-        zoom: {
-          enabled: true,
+  public dotChartOptions: ChartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        title: {display: true, text: 'Age'},
+        type: 'linear',
+        position: 'bottom'
+      },
+      y: {
+        title: {display: true, text: 'Count'},
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1,  // Ensures only whole numbers are shown
+          callback: function (value) {
+            return Number(value).toFixed(0);
+          } // Display whole numbers only
         },
       },
+    },
+    plugins: {
+      legend: {display: false},
+    },
+  }
 
-      responsive: {
-        breakpoint: 280,
-        options: {
-          legend: {
-            position: 'bottom',
-            offsetY: 0,
-          },
-        },
-      },
-      plotOptions: {
-        area: {
-          fillTo: 'end',
-        },
-        bar: {
-          horizontal: false,
-          columnWidth: '20%',
-          borderRadius: 7,
-          borderRadiusApplication: 'end',
-          borderRadiusWhenStacked: 'all',
-          distributed: true,
-          colors: {
-            ranges: [
-              {
-                from: 0,
-                to: 100000,
-                color: '#28C76F',
-              },
-              {
-                from: -100000,
-                to: 0,
-                color: '#EA5455',
-              },
-            ],
-          },
-        },
-      },
-      xaxis: {
-        categories: [
-          ' Jan ',
-          'feb',
-          'march',
-          'april',
-          'may',
-          'june',
-          'july',
-          'auguest',
-        ],
-      },
+  private generateColors(length: number) {
+    // Define a set of colors, then repeat if needed
+    const baseColors = [
+      'rgba(255, 99, 132, 0.6)',
+      'rgba(54, 162, 235, 0.6)',
+      'rgba(255, 206, 86, 0.6)',
+      'rgba(75, 192, 192, 0.6)',
+      'rgba(153, 102, 255, 0.6)',
+      'rgba(255, 159, 64, 0.6)'
+    ];
+    return Array.from({length}, (_, i) => baseColors[i % baseColors.length]);
+  }
 
-      legend: {
-        position: 'right',
-        offsetY: 40,
-      },
-      fill: {
-        opacity: 1,
-      },
+  private updateChartData() {
+    const colors = this.generateColors(this.ageData.length); // Dynamic colors for each data point
+    this.dotChartData = {
+      datasets: [{
+        label: 'Age vs. Count',
+        data: this.ageData.map((item, index) => ({
+          x: item.age,
+          y: item.count,
+        })),
+        backgroundColor: colors,
+        borderColor: colors.map(color => color.replace('0.6', '1')),
+        pointRadius: 5,
+      }],
     };
-
   }
 
-
-
-  public sortRecentlyAddedProducts(sort: Sort) {
-    const data = this.recentlyAddedProducts.slice();
-
-    if (!sort.active || sort.direction === '') {
-      this.recentlyAddedProducts = data;
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.recentlyAddedProducts = data.sort((a: any, b: any) => {
-        const aValue = a[sort.active];
-        const bValue = b[sort.active];
-        return (aValue < bValue ? -1 : 1) * (sort.direction === 'asc' ? 1 : -1);
-      });
-    }
-  }
-  public sortExpiredProducts(sort: Sort) {
-    const data = this.expiredProducts.slice();
-
-    if (!sort.active || sort.direction === '') {
-      this.expiredProducts = data;
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.expiredProducts = data.sort((a: any, b: any) => {
-        const aValue = a[sort.active];
-        const bValue = b[sort.active];
-        return (aValue < bValue ? -1 : 1) * (sort.direction === 'asc' ? 1 : -1);
-      });
-    }
+  public dotChartData: ChartData<'scatter'> = {
+    datasets: []
   }
 }

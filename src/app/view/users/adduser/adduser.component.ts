@@ -16,30 +16,13 @@ export class AdduserComponent {
   password='password'
   show = false;
   public routes = routes;
-  userRoles: data[] = [
-    {value: 'USER'},
-    {value: 'MODERATOR'},
-    {value: 'ADMIN'},
-    {value: 'DOCTOR'},
-    {value: 'MANAGER'},
-    {value: 'MARKETING'},
-    {value: 'MARKETING_MANAGER'},
-    {value: 'ACCOUNTANT'},
-    {value: 'ACCOUNTANT_MANAGER'},
-    {value: 'PRODUCTION_MANAGER'},
-    {value: 'STORE_KEEPER'},
-    {value: 'SUPER_ADMIN'},
-  ];
+
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     username: new FormControl(''),
-    clientId: new FormControl(''),
-    apiKey: new FormControl(''),
     name: new FormControl('', [Validators.required]),
-    sellingCategory: new FormControl(''),
-    sellingContact: new FormControl(''),
     mobileNum: new FormControl('', [Validators.required,Validators.maxLength(10)]),
     role: new FormControl([''], [Validators.required]),
   });
@@ -64,8 +47,6 @@ export class AdduserComponent {
   }
 
   onSubmit() {
-    console.log('user form')
-    console.log(this.form.value)
     if (this.form.valid) {
       this.form.value.username = this.form.value.email
       this.authService.addUser(this.form.value).subscribe(

@@ -13,11 +13,15 @@
           <div class="col-lg-4 col-sm-6 col-12">
             <div class="form-group">
               <label class="required">Select Schedule</label>
-              <mat-select class="select" >
-                <mat-option >test Schedule 01</mat-option>
-                <mat-option >test Schedule 02</mat-option>
-                <mat-option >test Schedule 03</mat-option>
-                <mat-option >test Schedule 04</mat-option>
+              <mat-select class="select" [(ngModel)]="selectedDate" >
+                <mat-option >Gain Game Plan</mat-option>
+                <mat-option >Bulk Up Blueprint</mat-option>
+                <mat-option >Fat Burn Fiesta</mat-option>
+                <mat-option >Fit Life Routine</mat-option>
+                <mat-option >Gain Game Plan</mat-option>
+                <mat-option >Lady Bulk Blueprint</mat-option>
+                <mat-option >Lean Machine Schedule</mat-option>
+                <mat-option >Power Packed Woman Plan</mat-option>
               </mat-select>
             </div>
           </div>
@@ -38,7 +42,7 @@
 
               <tr >
                 <td>1</td>
-                <td>test Exercise Name</td>
+                <td>Lunges</td>
                 <td>12/2,22/4</td>
                 <td>
                   <div class="form-check form-switch">

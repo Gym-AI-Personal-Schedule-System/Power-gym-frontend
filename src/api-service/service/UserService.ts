@@ -29,4 +29,14 @@ export class UserService {
     return this.http.put<any>(this.BASEURL+'user/updatePassword', body,{ headers });
 
   }
+  getActiveMemberList() {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.get<any>(this.BASEURL+'user/getActiveMemberList',{ headers });
+
+  }
+  getAgeWiseMemberCount() {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.get<any>(this.BASEURL+'user/getAgeWiseMemberCount',{ headers });
+
+  }
 }

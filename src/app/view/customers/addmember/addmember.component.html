@@ -12,21 +12,21 @@
           <div class="form-group">
             <label class="required" class="me-2">Contact number</label>
           <div class="input-group">
-            <input type="text" formControlName="mobileNumOne" class="form-control">
-            <span class="input-group-text" (click)="getCustomerByMobile()"><i class="fa fa-search" aria-hidden="true"></i></span>
+            <input type="text" formControlName="mobileNum" class="form-control">
+            <span class="input-group-text" (click)="getUserDataByMobileNumber()"><i class="fa fa-search" aria-hidden="true"></i></span>
           </div>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label class="required">Member Name</label>
-            <input type="text" formControlName="MemberName" class="form-control">
+            <input type="text" formControlName="name" class="form-control">
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label class="required">User Name</label>
-            <input type="text" formControlName="userName" class="form-control">
+            <input type="text" formControlName="username" class="form-control">
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
@@ -38,22 +38,22 @@
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
             <label class="required">Choose Gender</label>
-            <mat-select class="select" placeholder="Select" >
-              <mat-option  [value]="Female">Female</mat-option>
-              <mat-option  [value]="Male">Male</mat-option>
+            <mat-select formControlName="gender" class="select" placeholder="Select">
+              <mat-option [value]="Female">Female</mat-option>
+              <mat-option [value]="Male">Male</mat-option>
             </mat-select>
           </div>
         </div>
 
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label class="required" >Height</label>
+            <label class="required" >Height(Cm)</label>
             <input type="text" formControlName="height" class="form-control">
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="form-group">
-            <label class="required" >Weight</label>
+            <label class="required" >Weight(Kg)</label>
             <input type="text" formControlName="weight" class="form-control">
           </div>
         </div>
@@ -87,7 +87,7 @@
 
         <div class="col-lg-12">
           <button type="submit" class="btn btn-submit me-2">Submit</button>
-          <button type="button" class="btn btn-cancel">Cancel</button>
+          <button type="button" class="btn btn-cancel" (click)="clearFrom()">Cancel</button>
         </div>
       </div>
     </form>
