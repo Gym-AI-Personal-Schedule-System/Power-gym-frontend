@@ -7,6 +7,7 @@ export class ScheduleModel{
   bmi: number;
   gender: string;
   fitnessGoal: string;
+  mobileNumOne: string;
 
   constructor(
     age: number,
@@ -16,7 +17,8 @@ export class ScheduleModel{
     height: number,
     bmi: number,
     gender: string,
-    fitnessGoal: string
+    fitnessGoal: string,
+    mobileNumOne: string
   ) {
     this.age = age;
     this.workoutExperience = workoutExperience;
@@ -26,5 +28,6 @@ export class ScheduleModel{
     this.bmi = bmi;
     this.gender = gender;
     this.fitnessGoal = fitnessGoal;
+    this.mobileNumOne = mobileNumOne;
   }
 }

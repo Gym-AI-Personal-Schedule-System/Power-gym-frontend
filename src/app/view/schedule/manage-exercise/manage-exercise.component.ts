@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./manage-exercise.component.scss']
 })
 export class ManageExerciseComponent {
-
+  public selectedDate='Bulk Up Blueprint'
 }

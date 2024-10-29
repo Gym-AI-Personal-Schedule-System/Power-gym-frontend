@@ -6,11 +6,17 @@ import { DashboardComponent } from './dashboard.component';
 
 import { FeatherModule } from 'angular-feather';
 import { sharedModule } from 'src/app/shared/shared.index';
+import {NgChartsModule} from "ng2-charts";
 
 
 @NgModule({
   declarations: [DashboardComponent],
-  imports: [CommonModule, DashboardRoutingModule, sharedModule],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    sharedModule,
+    NgChartsModule
+  ],
   exports: [FeatherModule],
 })
 export class DashboardModule {}

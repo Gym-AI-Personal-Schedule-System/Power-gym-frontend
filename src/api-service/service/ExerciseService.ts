@@ -6,24 +6,19 @@ import {ApiResultFormatModel} from "../model/common/ApiResultFormatModel";
 @Injectable({
   providedIn: 'root',
 })
-export  class ScheduleService{
+export  class ExerciseService{
   private BASEURL:string;
   constructor(private http:HttpClient) {
     this.BASEURL = environment.baseURL;
   }
 
-  generateSchedule(payLoad: any) {
+  addExercise(payLoad: any) {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/generateSchedule', payLoad, { headers });
+    return this.http.post<ApiResultFormatModel>(this.BASEURL+'exercise/saveExercise', payLoad, { headers });
+  }
+  getActiveExerciseList() {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.post<ApiResultFormatModel>(this.BASEURL+'exercise/getActiveExerciseList', null,{ headers });
   }
 
-  getUserScheduleCreateDates(payLoad: any) {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/getUserScheduleCreateDates', payLoad, { headers });
-  }
-
-  getUserWiseSchedule(payLoad: any) {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/getUserWiseSchedule', payLoad, { headers });
-  }
 }

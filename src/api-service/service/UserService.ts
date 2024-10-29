@@ -13,26 +13,30 @@ export class UserService {
     this.BASEURL = environment.baseURL;
   }
 
-  public getUserRolWiseUser(payload: any): Observable<ApiResultFormatModel> {
+  public getUserDataByMobileNumber(payload: any): Observable<ApiResultFormatModel> {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.post<ApiResultFormatModel>(this.BASEURL+'user/getUserRolWiseUser', payload, { headers });
+    return this.http.post<ApiResultFormatModel>(this.BASEURL+'user/getUserDataByMobileNumber',payload, { headers });
   }
 
-
-  public getUserWiseUserPrivilege(payload: any): Observable<ApiResultFormatModel> {
+  otpSend( body: any) {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.post<ApiResultFormatModel>(this.BASEURL+'user/getUserWiseUserPrivilege', payload, { headers });
+    return this.http.post<any>(this.BASEURL+'user/otpSend', body,{ headers });
+
   }
 
-  public getAllUsers(payload: any): Observable<ApiResultFormatModel> {
+  updatePassword( body: any) {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.post<ApiResultFormatModel>(this.BASEURL+'user/get-all-users',payload, { headers });
+    return this.http.put<any>(this.BASEURL+'user/updatePassword', body,{ headers });
+
   }
-
-
-
-  public getRoles(): Observable<ApiResultFormatModel> {
+  getActiveMemberList() {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.get<ApiResultFormatModel>(this.BASEURL+'user/get-roles', { headers });
+    return this.http.get<any>(this.BASEURL+'user/getActiveMemberList',{ headers });
+
+  }
+  getAgeWiseMemberCount() {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.get<any>(this.BASEURL+'user/getAgeWiseMemberCount',{ headers });
+
   }
 }
