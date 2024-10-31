@@ -15,8 +15,8 @@
             <div class="col-lg-4 col-sm-6 col-12">
               <div class="form-group">
                 <label>Schedule</label>
-                <mat-select class="select" [(ngModel)]="selectedDate" (selectionChange)="getExerciseList(selectedDate)">
-                  <mat-option *ngFor="let date of scheduleDates" [value]="date">{{date | date: 'yyyy-MM-dd'}}</mat-option> <!-- Display formatted dates -->
+                <mat-select class="select" [(ngModel)]="selectedDate" (selectionChange)="getExerciseList($event.value)">
+                  <mat-option *ngFor="let date of scheduleDates" [value]="date">{{ date | date: 'yyyy-MM-dd' }}</mat-option> <!-- Display formatted dates -->
                 </mat-select>
               </div>
             </div>

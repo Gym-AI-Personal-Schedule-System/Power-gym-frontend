@@ -13,22 +13,16 @@
           <div class="col-lg-4 col-sm-6 col-12">
             <div class="form-group">
               <label class="required">Select Schedule</label>
-              <mat-select class="select" [(ngModel)]="selectedDate" >
-                <mat-option >Gain Game Plan</mat-option>
-                <mat-option >Bulk Up Blueprint</mat-option>
-                <mat-option >Fat Burn Fiesta</mat-option>
-                <mat-option >Fit Life Routine</mat-option>
-                <mat-option >Gain Game Plan</mat-option>
-                <mat-option >Lady Bulk Blueprint</mat-option>
-                <mat-option >Lean Machine Schedule</mat-option>
-                <mat-option >Power Packed Woman Plan</mat-option>
+              <mat-select class="select" [(ngModel)]="selectedDate" name="selectedDate">
+                <mat-option *ngFor="let item of schedule" [value]="item.scheduleID">
+                  {{ item.scheduleName }}
+                </mat-option>
               </mat-select>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="table-responsive">
-<!--            <label style="color: #c92d2d; font-size: 15px;">Selected User Have No Privileges Yet</label>-->
             <table class="table mb-0">
               <thead>
               <tr>
@@ -39,26 +33,71 @@
               </tr>
               </thead>
               <tbody>
-
-              <tr >
-                <td>1</td>
-                <td>Lunges</td>
-                <td>12/2,22/4</td>
+              <tr *ngFor="let exercise of exercises; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ exercise.exerciseName }}</td>
+                <td>
+                  <!-- Show input for sets if checkbox is selected -->
+                  <ng-container *ngIf="exercise.isSelected">
+                    <input
+                      style="width: 50%"
+                      type="text"
+                      [(ngModel)]="exercise.sets"
+                      name="sets-{{ i }}"
+                      class="form-control"
+                      placeholder="Enter sets">
+                  </ng-container>
+                  <ng-container *ngIf="!exercise.isSelected">
+                    {{ exercise.sets || '-' }}
+                  </ng-container>
+                </td>
                 <td>
                   <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      [(ngModel)]="exercise.isSelected"
+                      name="selectExercise-{{ i }}">
                   </div>
                 </td>
               </tr>
               </tbody>
+
             </table>
           </div>
         </div>
+
         <div class="col-lg-12 col-sm-12 col-12 mt-4">
-          <button type="submit" class="btn btn-submit me-2" >Submit</button>
-          <button type="button" class="btn btn-clear">Clear</button>
+          <button type="button" class="btn btn-submit me-2" (click)="submitSelectedExercises()">Submit</button>
+          <button type="button" class="btn btn-clear" (click)="cleanTable()">Clear</button>
         </div>
       </form>
+
+      <!-- New table to display selected exercises -->
+      <div *ngIf="selectedExercises.length > 0" class="mt-4">
+        <h5>Selected Exercises</h5>
+        <table class="table mb-0">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Exercise Name</th>
+            <th>Sets</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let exercise of selectedExercises; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ exercise.exerciseName }}</td>
+            <td>{{ exercise.sets }}</td>
+            <td><a (click)="removeExercise(exercise)" class="me-3 confirm-text" href="javascript:void(0);">
+              <img src="../../../../assets/img/icons/delete.svg" alt="Delete" />
+            </a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+
 </div>
