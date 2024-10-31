@@ -1,27 +1,42 @@
-# Template
+# AI-Personal-Gym-Schedule Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
+This is the frontend of the **AI Personal Gym Schedule** project, built with Angular and enhanced with various libraries for UI and data visualization.
 
-## Development server
+## Table of Contents
+1. [System Requirements](#system-requirements)
+2. [Installation Guide](#installation-guide)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+### System Requirements
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Node.js**: Version 14.0 or higher
+- **Angular CLI**: Version 15.0.0 or higher
+- **Operating System**: Windows, MacOS, or Linux
+- **Disk Space**: Minimum of 500 MB
+- **Internet Access**: Required for downloading dependencies
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Installation Guide
 
-## Running unit tests
+Follow these steps to set up the project on your local machine.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Step 1: Clone the Repository
+Clone the project repository to your local system:
 
-## Running end-to-end tests
+    git clone https://github.com/Gym-AI-Personal-Schedule-System/Power-gym-frontend.git
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+---
+#### Step 2: Navigate to the Project Directory and Install Dependencies
+Install all required packages using npm:
 
-## Further help
+    npm install  --legacy-peer-deps
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---
+#### Step 3: Run the Application
+Start the development server using Angular CLI:
+
+    ng serve
+
+The application will run on http://localhost:4200.
+

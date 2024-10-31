@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {sharedModule} from "../../../shared/shared.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ViewExerciseRoutingModule} from "./view-exercise-routing.module";
 import {ViewExerciseComponent} from "./view-exercise.component";
 
@@ -13,7 +13,8 @@ import {ViewExerciseComponent} from "./view-exercise.component";
     CommonModule,
     ViewExerciseRoutingModule,
     sharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class ViewExerciseModule {

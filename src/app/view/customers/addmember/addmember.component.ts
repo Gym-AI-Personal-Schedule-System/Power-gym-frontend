@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import Swal from "sweetalert2";
 import {AuthService} from "../../../../api-service/service/AuthService";
@@ -11,7 +11,7 @@ import {UserService} from "../../../../api-service/service/UserService";
   templateUrl: './addmember.component.html',
   styleUrls: ['./addmember.component.scss']
 })
-export class AddmemberComponent  {
+export class AddmemberComponent  implements OnInit{
   customerForm: FormGroup;
   Female?:string= "Female";
   Male?:string="Male";
@@ -22,9 +22,13 @@ export class AddmemberComponent  {
     // this.getDeliveryCities();
     this.customerForm = new FormGroup({});
     this.createForm();
+
+  }
+
+  ngOnInit(): void {
     this.customerForm.get('height')?.valueChanges.subscribe(() => this.calculateBMI());
     this.customerForm.get('weight')?.valueChanges.subscribe(() => this.calculateBMI());
-  }
+    }
 
 
   createForm(){
