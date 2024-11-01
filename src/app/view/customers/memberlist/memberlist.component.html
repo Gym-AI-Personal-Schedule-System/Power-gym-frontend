@@ -5,7 +5,27 @@
   </div>
 </div>
 
+<div class="wordset">
+  <ul>
+    <li>
+      <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf" (click)="generateExcel()"
+      ><img src="../../../../assets/img/icons/pdf.svg" alt="img"
+      /></a>
+    </li>
+    <li>
+      <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel" (click)="generateExcel()"
+      ><img src="../../../../assets/img/icons/excel.svg" alt="img"
+      /></a>
+    </li>
+    <li>
+      <a data-bs-toggle="tooltip" data-bs-placement="top" title="print" (click)="generateExcel()"
+      ><img src="../../../../assets/img/icons/printer.svg" alt="img"
+      /></a>
+    </li>
+  </ul>
+</div>
 <div class="card">
+
   <div class="card-body">
     <div class="table-responsive">
       <table matSort matSortActive="Sno" matSortDirection="asc" matSortDisableClear class="table datanew">

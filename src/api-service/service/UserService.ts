@@ -39,4 +39,9 @@ export class UserService {
     return this.http.get<any>(this.BASEURL+'user/getAgeWiseMemberCount',{ headers });
 
   }
+  getActiveUserCount( body: any) {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.post<any>(this.BASEURL+'user/getActiveUserCount', body,{ headers });
+
+  }
 }

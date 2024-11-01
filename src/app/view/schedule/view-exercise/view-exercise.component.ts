@@ -26,7 +26,7 @@ export class ViewExerciseComponent implements OnInit {
 
   private loadUserWiseScheduleDate() {
     const payload = {userCode: this.userCode};
-    this.scheduleService.getUserScheduleCreateDates(payload).subscribe(response => {
+    this.scheduleService.getAllUserScheduleDetails(payload).subscribe(response => {
       if (response.statusCode === 200) {
         if (response.data) {
           this.scheduleDates = response.data.map((item: any) => {

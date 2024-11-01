@@ -13,7 +13,7 @@
           <div class="col-lg-4 col-sm-6 col-12">
             <div class="form-group">
               <label class="required">Select Schedule</label>
-              <mat-select class="select" [(ngModel)]="selectedDate" name="selectedDate">
+              <mat-select class="select" [(ngModel)]="selectedData" name="selectedData">
                 <mat-option *ngFor="let item of schedule" [value]="item.scheduleID">
                   {{ item.scheduleName }}
                 </mat-option>
@@ -68,7 +68,7 @@
         </div>
 
         <div class="col-lg-12 col-sm-12 col-12 mt-4">
-          <button type="button" class="btn btn-submit me-2" (click)="submitSelectedExercises()">Submit</button>
+          <button type="button" class="btn btn-submit me-2" (click)="submitSelectedExercises()">Add</button>
           <button type="button" class="btn btn-clear" (click)="cleanTable()">Clear</button>
         </div>
       </form>
@@ -96,6 +96,7 @@
           </tr>
           </tbody>
         </table>
+        <button type="button" class="btn btn-clear mt-2" (click)="saveExerciseDetails()">Submit</button>
       </div>
     </div>
   </div>

@@ -17,9 +17,9 @@ export  class ScheduleService{
     return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/generateSchedule', payLoad, { headers });
   }
 
-  getUserScheduleCreateDates(payLoad: any) {
+  getAllUserScheduleDetails(payLoad: any) {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/getUserScheduleCreateDates', payLoad, { headers });
+    return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/getAllUserScheduleDetails', payLoad, { headers });
   }
 
   getUserWiseSchedule(payLoad: any) {
@@ -30,5 +30,14 @@ export  class ScheduleService{
   getSchedule() {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
     return this.http.get<ApiResultFormatModel>(this.BASEURL+'schedule/getSchedule', { headers });
+  }
+  saveScheduleWiseExerciseList(payLoad: any) {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.post<ApiResultFormatModel>(this.BASEURL+'schedule/saveScheduleWiseExerciseList',payLoad,{ headers });
+  }
+
+  getScheduleCount() {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.get<ApiResultFormatModel>(this.BASEURL+'schedule/getScheduleCount', { headers });
   }
 }

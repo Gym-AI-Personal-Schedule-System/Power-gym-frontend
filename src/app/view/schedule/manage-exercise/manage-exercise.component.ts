@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ScheduleService} from "../../../../api-service/service/ScheduleService";
 import Swal from "sweetalert2";
 import {ExerciseService} from "../../../../api-service/service/ExerciseService";
@@ -9,7 +9,7 @@ import {ExerciseService} from "../../../../api-service/service/ExerciseService";
   styleUrls: ['./manage-exercise.component.scss']
 })
 export class ManageExerciseComponent {
-  public selectedDate = '';
+  public selectedData = '';
   public schedule = [];
   exercises: any[] = [];
   selectedExercises: any[] = [];
@@ -61,7 +61,9 @@ export class ManageExerciseComponent {
   }
 
   submitSelectedExercises() {
-    if (!this.selectedDate) {
+    console.log("Selected Schedule:", this.selectedData);
+
+    if (!this.selectedData) {
       Swal.fire({
         icon: 'warning',
         title: 'Warning',
@@ -75,8 +77,10 @@ export class ManageExerciseComponent {
       exercise => exercise.isSelected && exercise.sets && exercise.exerciseId
     );
 
+
     console.log("Selected Exercises:", this.selectedExercises);
   }
+
   removeExercise(exerciseToRemove: any) {
     // Remove the exercise from selectedExercises array
     this.selectedExercises = this.selectedExercises.filter(
@@ -86,5 +90,27 @@ export class ManageExerciseComponent {
 
   cleanTable() {
     this.getActiveExerciseList();
+  }
+
+  saveExerciseDetails() {
+    const payload = {
+      scheduleID: this.selectedData,
+      exerciseDataDTOList: this.selectedExercises
+    }
+    this.scheduleService.saveScheduleWiseExerciseList(payload).subscribe(value => {
+      if (value.statusCode === 200) {
+        Swal.fire(
+          'SUCCESS',
+          'Exercise  Save Success!',
+          'success'
+        );
+      }
+    }, error => {
+      Swal.fire(
+        '',
+        error.error.data,
+        'error'
+      );
+    });
   }
 }

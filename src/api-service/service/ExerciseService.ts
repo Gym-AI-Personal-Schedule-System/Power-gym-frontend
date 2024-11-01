@@ -20,5 +20,9 @@ export  class ExerciseService{
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
     return this.http.post<ApiResultFormatModel>(this.BASEURL+'exercise/getActiveExerciseList', null,{ headers });
   }
+  getExerciseCount() {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+    return this.http.get<ApiResultFormatModel>(this.BASEURL+'exercise/getExerciseCount', { headers });
+  }
 
 }

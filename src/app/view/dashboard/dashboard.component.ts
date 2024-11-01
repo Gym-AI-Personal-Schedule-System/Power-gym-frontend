@@ -2,6 +2,9 @@ import {Component} from '@angular/core';
 import {routes} from 'src/app/core/routes-path/routes';
 import {ChartData, ChartOptions} from "chart.js";
 import {UserService} from "../../../api-service/service/UserService";
+import {ScheduleService} from "../../../api-service/service/ScheduleService";
+import {ExerciseService} from "../../../api-service/service/ExerciseService";
+
 
 @Component({
   selector: 'app-dashboard',
@@ -11,19 +14,27 @@ import {UserService} from "../../../api-service/service/UserService";
 export class DashboardComponent {
   public routes = routes;
   public ageData = [];
-  // public ageData = [
-  //   {age: 20, count: 10},
-  //   {age: 22, count: 2},
-  //   {age: 25, count: 5},
-  //   {age: 30, count: 8},
-  //   {age: 35, count: 3},
-  //   {age: 40, count: 7},
-  //   {age: 50, count: 7},
-  // ];
+  public activeMemberCount = 0;
+  public activeTrainerCount = 0;
+  public activeScheduleCount = 0;
+  public activeExerciseCount = 0;
+  public isMember = false;
 
-  constructor(private userService: UserService) {
+  private userCode;
+
+
+
+  constructor(private userService: UserService, private scheduleService: ScheduleService, private exerciseService: ExerciseService) {
+    if (sessionStorage.getItem('role') === "ROLE_MEMBER") {
+      this.userCode = sessionStorage.getItem('userId');
+      this.isMember = true;
+    }
     this.LoadAgeWiseUserData();
-    // this.updateChartData();
+    this.loadMemberCounts();
+    this.loadTrainerCounts();
+    this.loadScheduleCount();
+    this.loadExerciseCount();
+
   }
 
   private LoadAgeWiseUserData() {
@@ -91,4 +102,46 @@ export class DashboardComponent {
   public dotChartData: ChartData<'scatter'> = {
     datasets: []
   }
+
+  private loadMemberCounts() {
+    const payload = {
+      role: "ROLE_MEMBER"
+    }
+    this.userService.getActiveUserCount(payload).subscribe(value => {
+      console.log("count vlues ", value)
+      if (value.statusCode == 200) {
+        this.activeMemberCount = value.data
+      }
+    })
+
+
+  }
+
+  private loadTrainerCounts() {
+    const trainerPayload = {
+      role: "ROLE_TRAINER"
+    }
+    this.userService.getActiveUserCount(trainerPayload).subscribe(value => {
+      if (value.statusCode == 200) {
+        this.activeTrainerCount = value.data
+      }
+    })
+  }
+
+  private loadScheduleCount() {
+    this.scheduleService.getScheduleCount().subscribe(value => {
+      if (value.statusCode == 200) {
+        this.activeScheduleCount = value.data
+      }
+    })
+  }
+
+  private loadExerciseCount() {
+    this.exerciseService.getExerciseCount().subscribe(value => {
+      if (value.statusCode == 200) {
+        this.activeExerciseCount = value.data
+      }
+    })
+  }
+
 }

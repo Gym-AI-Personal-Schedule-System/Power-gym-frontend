@@ -1,9 +1,9 @@
-<div class="row">
+<div class="row" *ngIf="!isMember">
 
   <div class="col-lg-3 col-sm-6 col-12 d-flex">
     <div class="dash-count">
       <div class="dash-counts">
-        <h4>60</h4>
+        <h4>{{activeMemberCount}}</h4>
         <h5>Active Members</h5>
       </div>
       <div class="dash-imgs">
@@ -14,7 +14,7 @@
   <div class="col-lg-3 col-sm-6 col-12 d-flex">
     <div class="dash-count das1">
       <div class="dash-counts">
-        <h4>3</h4>
+        <h4>{{activeTrainerCount}}</h4>
         <h5>Active Trainers</h5>
       </div>
       <div class="dash-imgs">
@@ -25,7 +25,7 @@
   <div class="col-lg-3 col-sm-6 col-12 d-flex">
     <div class="dash-count das2">
       <div class="dash-counts">
-        <h4>100</h4>
+        <h4>{{activeExerciseCount}}</h4>
         <h5>Total Exercise</h5>
       </div>
       <div class="dash-imgs">
@@ -36,7 +36,7 @@
   <div class="col-lg-3 col-sm-6 col-12 d-flex">
     <div class="dash-count das3">
       <div class="dash-counts">
-        <h4>6</h4>
+        <h4>{{activeScheduleCount}}</h4>
         <h5>Total Schedule</h5>
       </div>
       <div class="dash-imgs">
@@ -46,7 +46,7 @@
   </div>
 </div>
 
-<div class="chart-container">
+<div class="chart-container" *ngIf="!isMember">
   <h4>Age wise Member count</h4>
   <canvas baseChart
           [data]="dotChartData"
@@ -54,4 +54,7 @@
           chartType="scatter">
   </canvas>
 </div>
+
+
+
 
